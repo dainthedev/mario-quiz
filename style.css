@@ -1,0 +1,12 @@
+body{
+    text-align: center;
+    margin: 300px 0px;
+}
+
+input{
+    margin: 6px 0px 0px 40px;
+}
+
+.extra-top-margin{
+    margin: 13px 0px;
+}
