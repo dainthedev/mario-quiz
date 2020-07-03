@@ -7,8 +7,10 @@ const ITEMS = [
             "Mario Brothers",
             "Wrecking Crew"
         ],
-        correct: "Donkey Kong",
-            
+        correct: "Donkey Kong"
+    },
+    
+    {
         question: "In the arcade title Donkey Kong, what was the name originally given to the character who would becomen known as Mario?",
         answer:[
             "Jumpman",
@@ -16,8 +18,10 @@ const ITEMS = [
             "Al",
             "The carpenter"
         ],
-        correct: "Jumpman",
+        correct: "Jumpman"
+    },
 
+    {
         question: "Who played the two leads, Mario and Luigi, respectively in the 1993 feature film, Super Mario Bros?",
         answer:[
             "Bob Hoskins and John Leguizamo",
@@ -25,8 +29,10 @@ const ITEMS = [
             "Rober Deniro and Joe Pesci",
             "Marlon Brando and Kenneth Branagh"
         ],
-        correct: "Bob Hoskins and John Leguizamo",
+        correct: "Bob Hoskins and John Leguizamo"
+    },
 
+    {
         question: "Which of the following is not a real Mario themed game?",
         answer:[
             "Mario's Super Karaoke",
@@ -34,8 +40,10 @@ const ITEMS = [
             "Mario Superstar Baseball",
             "Mario Paint"
         ],
-        correct: "Mario's Super Karaoke",
+        correct: "Mario's Super Karaoke"
+    },
 
+    {
         question: "How long was the longest gap between releases in the Super Mario line of games",
         answer:[
             "6 years",
@@ -43,8 +51,10 @@ const ITEMS = [
             "2 years",
             "9 months"
         ],
-        correct: "6 years",
+        correct: "6 years"
+    },
 
+    {
         question: "What role did Koji Kondo play in the creation of Super Mario Bros 1,2, and 3?",
         answer:[
             "Composer",
@@ -52,8 +62,10 @@ const ITEMS = [
             "Lead programmer",
             "Art director"
         ],
-        correct: "Composer",
+        correct: "Composer"
+    },
 
+    {
         question: "What is the name of the game that was reskinned to create a US and PAL region release under the name Super Mario Brothers 2?",
         answer:[
             "Yume Kōjō: Doki Doki Panic",
@@ -61,8 +73,10 @@ const ITEMS = [
             "Moon Crystal",
             "Dezaemon"
         ],
-        correct: "Yume Kōjō: Doki Doki Panic",
-
+        correct: "Yume Kōjō: Doki Doki Panic"
+    },
+    
+    {
         question: "Before adopting the damsel-kidnapping-gorilla motif, what intellectual propery was Donkey Kong, the original Mario game, supposed to be based off of?",
         answer:[
             "Popeye",
@@ -70,8 +84,10 @@ const ITEMS = [
             "Indiana Jones",
             "Dick Tracy"
         ],
-        correct: "Popeye",
+        correct: "Popeye"
+    },
 
+    {
         question: "Where did the name Mario come from?",
         answer:[
             "Nintendo of America's office landlord",
@@ -79,8 +95,10 @@ const ITEMS = [
             "Author of the Godfather novels, Mario Puzo",
             "Formula one driver, Mario Andretti"
         ],
-        correct: "Nintendo of America's office landlord",
+        correct: "Nintendo of America's office landlord"
+    },
 
+    {
         question: "How many seasons did the 1989 Super Mario Bros. Super Show television series run for?",
         answer:[
             "1 season",
@@ -88,8 +106,10 @@ const ITEMS = [
             "3 seasons",
             "4 seasons"
         ],
-        correct: "1 season",
+        correct: "1 season"
+    },
 
+    {
         question:"What inspired the localized names of the koopalings in Super Mario Bros. 3?",
         answer:[
             "Famous musicians",
@@ -97,8 +117,10 @@ const ITEMS = [
             "Characters from the world war II prisoner of war film, The Great Escape",
             "The works of T.S. Elliot"
         ],
-        correct: "Famous musicians",
+        correct: "Famous musicians"
+    },
 
+    {
         question: "What is the best selling Mario game?",
         answer:[
             "Super Mario Bros.",
@@ -113,15 +135,17 @@ const ITEMS = [
 let score = 0;
 let questionIndex = 0;
 const endQuiz = 12;
+let questionNumber = 1;
 
 function renderQuestion(){
     console.log("The question index is " + questionIndex);
+    $("#mario-main").replaceWith('<img id="mario-main" src="img/mario-main.jpg">');
     let question = ITEMS[questionIndex];
     console.log(question);
     console.log("quiz rendered");
     $(".next-question").html(`<form>
-    <h2>${question.question}</h2>
-        <input name="response" type="radio" value="${question.answer[0]}">
+    <h2>#${questionNumber} ${question.question}</h2>
+        <input name="response" type="radio" value="${question.answer[0]}" required>
             <label for="1">${question.answer[0]}</label><br>
         <input name="response" type="radio" value="${question.answer[1]}">
             <label for="2">${question.answer[1]}</label><br>
@@ -138,15 +162,17 @@ function renderFeedback(answer){
     let feedback;
     if(answer === question.correct){
         console.log("The answer is correct");
-        feedback = "true";
+        $("#mario-main").replaceWith('<img id="mario-main" src="img/mushroom.png" alt="mushroom">');
+        feedback = "That's Right!";
         handleIncreaseScore();
         console.log(score);
         renderScore();
     }
     else{
+        $("#mario-main").replaceWith('<img id="mario-main" src="img/poison.jpg" alt="poison mushroom">');
         renderScore();
         console.log("false");
-        feedback = "false";
+        feedback = `No Way! The correct answer is:${question.correct}`;
     }
     //questionIndex ++;
     //console.log("QI is now " + questionIndex);
@@ -155,7 +181,7 @@ function renderFeedback(answer){
     $(".next-question").html(`<form>
     <h2>${feedback}</h2>
     <button class="continue">Continue</button>
-</form>`)
+    </form>`);
 }
 
 function handleStart(){
@@ -197,6 +223,7 @@ function handleContinue(){
     $(".next-question").on("click", ".continue", function(event){
         console.log("next question rendered")
         questionIndex ++;
+        questionNumber ++;
         if(questionIndex < endQuiz){
             renderQuestion();
         }
@@ -208,15 +235,27 @@ function handleContinue(){
 
 function renderScore(){
     console.log("Score handled");
-    $("#score-keeper").html(`<h3>Score: ${score}/12</h3>`)
+    $("#score-keeper").html(`<h3>Score: ${score}/${endQuiz}</h3>`)
 
 }
 
 function renderScorePage(){
-    console.log("Score page rendered")
-    $(".next-question").html(`<h2>SCORE: ${score}/12</h2>
-    <h3>Conditional response</h3>
+    console.log("Score page rendered");
+    $("#mario-main").replaceWith('<img src="img/star.png" alt="star">')
+    let scoreResponse;
+    if(score === 12){
+        scoreResponse = "You are a super player!"
+    }
+    else if(score > 6){
+        scoreResponse = "You know your Mario."
+    }
+    else{
+        scoreResponse = "Oh well, I bet you spend your time better than I do."
+    }
+    $(".next-question").html(`<h2>SCORE: ${score}/${endQuiz}</h2>
+    <h3>${scoreResponse}</h3>
     <button id="retake">Try again</button>`)
+    $("#score-keeper").remove();
 }
 
 function handleRetake(){
@@ -225,13 +264,18 @@ function handleRetake(){
         console.log("retake clicked")
         score = 0;
         questionIndex = 0;
-        renderStart();
+        renderQuestion();
     });
 }
 
 function renderStart(){
     console.log("start rendered");
-
+    $("h1").html(`<h1>Mario Quiz</h1>
+    <div class="next-question">
+      <button id="start-btn">Start</button>
+    </div>
+    <div id="score-keeper"></div> `)
+    $("h2").remove();
 }
 
 function handleQuiz(){
@@ -240,7 +284,7 @@ function handleQuiz(){
     handleResponse();
     //handleIncreaseScore();
     handleContinue();
-    renderScore();
+    //renderScore();
     handleRetake();
 }
 
