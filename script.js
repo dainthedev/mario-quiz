@@ -138,11 +138,8 @@ const endQuiz = 12;
 let questionNumber = 1;
 
 function renderQuestion(){
-    console.log("The question index is " + questionIndex);
     $("#mario-main").replaceWith('<img id="mario-main" src="img/mario-jump.png">');
     let question = ITEMS[questionIndex];
-    console.log(question);
-    console.log("quiz rendered");
     $(".next-question").html(`<form>
     <h2>#${questionNumber} ${question.question}</h2>
         <div class="align">
@@ -163,23 +160,16 @@ function renderFeedback(answer){
     let question = ITEMS[questionIndex];
     let feedback;
     if(answer === question.correct){
-        console.log("The answer is correct");
         $("#mario-main").replaceWith('<img id="mario-main" src="img/mushroom.png" alt="mushroom">');
         feedback = "That's Right!";
         handleIncreaseScore();
-        console.log(score);
         renderScore();
     }
     else{
         $("#mario-main").replaceWith('<img id="mario-main" src="img/poison.png" alt="poison mushroom">');
         renderScore();
-        console.log("false");
         feedback = `No Way! The correct answer is: <p>${question.correct}</p>`;
     }
-    //questionIndex ++;
-    //console.log("QI is now " + questionIndex);
-    console.log(question);
-    console.log("feedback");
     $(".next-question").html(`<form>
     <h2>${feedback}</h2>
     <button class="continue">Continue</button>
@@ -187,43 +177,31 @@ function renderFeedback(answer){
 }
 
 function handleStart(){
-    console.log(score);
-    console.log("Start handled");
     $("#start-btn").click(function(event){
-    console.log("start button clicked");
-    console.log(ITEMS);
     renderQuestion();
     });
 }
 
 function handleSubmit(){
-    // event.preventDefault();
-    // console.log("Submit handled");
     $(".next-question").on("submit", "form", function(event){
         event.preventDefault();
         let submit = $(event.currentTarget);
-        console.log(submit);
         let answer = $("input[name='response']:checked").val();
-        console.log(answer);
         renderFeedback(answer);
     });
     
 }
 
 function handleResponse(){
-    console.log("response handled");
+
 }
 
 function handleIncreaseScore(){
-    console.log("IncreaseScore handled");
     score ++;
-    console.log(score);
 }
 
 function handleContinue(){
-    console.log("Continue handled");
     $(".next-question").on("click", ".continue", function(event){
-        console.log("next question rendered")
         questionIndex ++;
         questionNumber ++;
         if(questionIndex < endQuiz){
@@ -236,13 +214,10 @@ function handleContinue(){
 }
 
 function renderScore(){
-    console.log("Score handled");
     $("#score-keeper").html(`<h3>Score: ${score}/${endQuiz}</h3>`)
-
 }
 
 function renderScorePage(){
-    console.log("Score page rendered");
     $("#mario-main").replaceWith('<img id="mario-main" src="img/star.png" alt="star">')
     let scoreResponse;
     if(score === 12){
@@ -261,9 +236,7 @@ function renderScorePage(){
 }
 
 function handleRetake(){
-    console.log("Retake handled");
     $(".next-question").on("click", "#retake", function(event){
-        console.log("retake clicked")
         score = 0;
         questionIndex = 0;
         questionNumber = 1;
@@ -272,7 +245,6 @@ function handleRetake(){
 }
 
 function renderStart(){
-    console.log("start rendered");
     $("h1").html(`<h1>Mario Quiz</h1>
     <div class="next-question">
       <button id="start-btn">Start</button>
@@ -285,9 +257,7 @@ function handleQuiz(){
     handleStart();
     handleSubmit();
     handleResponse();
-    //handleIncreaseScore();
     handleContinue();
-    //renderScore();
     handleRetake();
 }
 
