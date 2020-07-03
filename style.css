@@ -16,9 +16,20 @@ label{
     margin: 13px 0px;
 }
 
+.align{
+    text-align: left;
+    width: 400px;
+    margin: 0 auto;
+}
+
 img{
-    width: 350px;
+    width: 220px;
     border-radius: 10px;
+}
+
+#mario-jump{
+    height: 250px;
+    width: 150px;
 }
 
 body{

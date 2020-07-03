@@ -2,9 +2,9 @@ const ITEMS = [
     {
         question: "What title is credited as Mario's first appearance in a video game?",
         answer:[
-            "Donkey Kong",
-            "Super Mario Brothers",
             "Mario Brothers",
+            "Super Mario Brothers",
+            "Donkey Kong",
             "Wrecking Crew"
         ],
         correct: "Donkey Kong"
@@ -24,9 +24,9 @@ const ITEMS = [
     {
         question: "Who played the two leads, Mario and Luigi, respectively in the 1993 feature film, Super Mario Bros?",
         answer:[
-            "Bob Hoskins and John Leguizamo",
+            "Robert Deniro and Joe Pesci",
             "Chris Farley and David Spade",
-            "Rober Deniro and Joe Pesci",
+            "Bob Hoskins and John Leguizamo",
             "Marlon Brando and Kenneth Branagh"
         ],
         correct: "Bob Hoskins and John Leguizamo"
@@ -35,10 +35,10 @@ const ITEMS = [
     {
         question: "Which of the following is not a real Mario themed game?",
         answer:[
-            "Mario's Super Karaoke",
+            "Mario Paint",
             "Hotel Mario",
             "Mario Superstar Baseball",
-            "Mario Paint"
+            "Mario's Super Karaoke"
         ],
         correct: "Mario's Super Karaoke"
     },
@@ -46,10 +46,10 @@ const ITEMS = [
     {
         question: "How long was the longest gap between releases in the Super Mario line of games",
         answer:[
-            "6 years",
+            "9 months",
             "4 years",
             "2 years",
-            "9 months"
+            "6 years"
         ],
         correct: "6 years"
     },
@@ -79,8 +79,8 @@ const ITEMS = [
     {
         question: "Before adopting the damsel-kidnapping-gorilla motif, what intellectual propery was Donkey Kong, the original Mario game, supposed to be based off of?",
         answer:[
-            "Popeye",
             "James Bond",
+            "Popeye",
             "Indiana Jones",
             "Dick Tracy"
         ],
@@ -90,9 +90,9 @@ const ITEMS = [
     {
         question: "Where did the name Mario come from?",
         answer:[
-            "Nintendo of America's office landlord",
-            "A memorable aquaintance Shigeru Miyamoto made on a flight to the United States",
             "Author of the Godfather novels, Mario Puzo",
+            "A memorable aquaintance Shigeru Miyamoto made on a flight to the United States",
+            "Nintendo of America's office landlord",
             "Formula one driver, Mario Andretti"
         ],
         correct: "Nintendo of America's office landlord"
@@ -101,10 +101,10 @@ const ITEMS = [
     {
         question: "How many seasons did the 1989 Super Mario Bros. Super Show television series run for?",
         answer:[
-            "1 season",
-            "2 seasons",
             "3 seasons",
-            "4 seasons"
+            "4 seasons",
+            "1 season",
+            "2 seasons"
         ],
         correct: "1 season"
     },
@@ -112,10 +112,10 @@ const ITEMS = [
     {
         question:"What inspired the localized names of the koopalings in Super Mario Bros. 3?",
         answer:[
-            "Famous musicians",
+            "The works of T.S. Elliot",
             "Characters from Victorian era plays",
             "Characters from the world war II prisoner of war film, The Great Escape",
-            "The works of T.S. Elliot"
+            "Famous musicians"
         ],
         correct: "Famous musicians"
     },
@@ -123,9 +123,9 @@ const ITEMS = [
     {
         question: "What is the best selling Mario game?",
         answer:[
-            "Super Mario Bros.",
-            "Mario Kart Wii",
             "Super Mario Odyssey",
+            "Mario Kart Wii",
+            "Super Mario Bros.",
             "Super Mario World"
         ],
         correct: "Super Mario Bros."
@@ -139,21 +139,23 @@ let questionNumber = 1;
 
 function renderQuestion(){
     console.log("The question index is " + questionIndex);
-    $("#mario-main").replaceWith('<img id="mario-main" src="img/mario-main.jpg">');
+    $("#mario-main").replaceWith('<img id="mario-main" src="img/mario-jump.png">');
     let question = ITEMS[questionIndex];
     console.log(question);
     console.log("quiz rendered");
     $(".next-question").html(`<form>
     <h2>#${questionNumber} ${question.question}</h2>
-        <input name="response" type="radio" value="${question.answer[0]}" required>
-            <label for="1">${question.answer[0]}</label><br>
-        <input name="response" type="radio" value="${question.answer[1]}">
-            <label for="2">${question.answer[1]}</label><br>
-        <input name="response" type="radio" value="${question.answer[2]}">
-            <label for="3">${question.answer[2]}</label><br>
-        <input name="response" type="radio" value="${question.answer[3]}">
-            <label for="4">${question.answer[3]}</label><br>
-        <button type="submit" class="extra-top-margin complete">Submit</button>
+        <div class="align">
+            <input name="response" type="radio" value="${question.answer[0]}" required>
+                <label for="1">${question.answer[0]}</label><br>
+            <input name="response" type="radio" value="${question.answer[1]}">
+                <label for="2">${question.answer[1]}</label><br>
+            <input name="response" type="radio" value="${question.answer[2]}">
+                <label for="3">${question.answer[2]}</label><br>
+            <input name="response" type="radio" value="${question.answer[3]}">
+                <label for="4">${question.answer[3]}</label><br>
+        </div>
+        <button type="submit" class="extra-top-margin complete">Submit</button>        
 </form>`)
 }
 
@@ -169,10 +171,10 @@ function renderFeedback(answer){
         renderScore();
     }
     else{
-        $("#mario-main").replaceWith('<img id="mario-main" src="img/poison.jpg" alt="poison mushroom">');
+        $("#mario-main").replaceWith('<img id="mario-main" src="img/poison.png" alt="poison mushroom">');
         renderScore();
         console.log("false");
-        feedback = `No Way! The correct answer is:${question.correct}`;
+        feedback = `No Way! The correct answer is: <p>${question.correct}</p>`;
     }
     //questionIndex ++;
     //console.log("QI is now " + questionIndex);
@@ -241,7 +243,7 @@ function renderScore(){
 
 function renderScorePage(){
     console.log("Score page rendered");
-    $("#mario-main").replaceWith('<img src="img/star.png" alt="star">')
+    $("#mario-main").replaceWith('<img id="mario-main" src="img/star.png" alt="star">')
     let scoreResponse;
     if(score === 12){
         scoreResponse = "You are a super player!"
@@ -264,6 +266,7 @@ function handleRetake(){
         console.log("retake clicked")
         score = 0;
         questionIndex = 0;
+        questionNumber = 1;
         renderQuestion();
     });
 }
